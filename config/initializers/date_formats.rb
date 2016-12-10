@@ -1,0 +1,1 @@
+Date::DATE_FORMATS[:long_pickdate] = '%e %B, %Y'

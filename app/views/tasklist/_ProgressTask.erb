@@ -1,0 +1,18 @@
+<div class="col s12">
+    <div class="card grey lighten-5">
+        <div type="ProgressTask" action="<%= url_for controller: "task", action: "update", id: @task_list.slug, id: task.id %>" class="card-content black-text">
+            <div editable="description">
+                <p class="flow-text"><%= task.description %></p>
+                <div class="actions right-align" style="display: none">
+                    <div action="save" class="btn blue">Save</div>
+                    <div action="cancel" class="btn white black-text">Cancel</div>
+                </div>
+            </div>
+            
+            <label>Progress</label>
+            <div editable="progress" class="range-field">
+                <div slider="<%= task.progress_state %>"></div>
+            </div>
+        </div>
+    </div>
+</div>

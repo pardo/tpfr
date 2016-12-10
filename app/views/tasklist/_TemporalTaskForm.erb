@@ -1,0 +1,36 @@
+<div id="TemporalTaskModal" class="modal task modal-fixed-footer">
+    <form method="post" action="<%= url_for controller: "task", action: "create", slug: @task_list.slug %>">
+        <div class="modal-content">
+            <h4>Temporal Task</h4>  
+            <div>
+                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                <input type="hidden" name="type" value="TemporalTask">
+                <div class="input-field">
+                    <textarea name="description" required length="255" class="materialize-textarea"></textarea>
+                    <label>Description</label>
+                </div>
+                <div class="input-field">
+                    <select name="priority">
+                        <option selected value="10">Low</option>
+                        <option value="5">Medium</option>
+                        <option value="0">High</option>                        
+                    </select>
+                    <label>Priority</label>
+                </div>
+                <input type="hidden" name="state" value="not_done">
+                <div>
+                    <label>Start Date:</label>
+                    <input required type="date" name="start_date" class="datepicker start_date">            
+                </div>
+                <div>
+                    <label>End Date:</label>
+                    <input required type="date" name="end_date" class="datepicker end_date">            
+                </div>
+            </div>   
+        </div>
+        <div class="modal-footer">
+            <a class="modal-action modal-close waves-effect waves-light btn-flat" class="cancel-form">Close</a>
+            <button class="modal-action waves-effect waves-light btn-flat blue-text" type="submit" name="action">Save</button>
+        </div>
+    </form>
+</div>

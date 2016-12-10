@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="col s12">
+        <h1>Tasker</h1>
+        <ul class="collection with-header">
+            <li class="collection-item">
+                <form action="<%= url_for %>" method="post">
+                    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                    <input required name="name" type="text" placeholder="Create a list by typing a new name">
+                </form>
+            </li>
+        
+            <% @task_list_list.each do |task_list| %>
+                <li class="collection-item">
+                    <div>
+                        <a class="" href="<%= url_for controller: "tasklist", action: "show", slug: task_list.slug  %>">
+                            <%= task_list.name %> ( <%= pluralize(task_list.tasks.count, "task") %> )
+                            <div class="secondary-content">
+                                <i class="material-icons blue-text">send</i>
+                            </div>
+                        </a>
+                    </div>
+                </li>
+            <% end %>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="col s12">
+    <div class="card grey lighten-5">
+        <div type="TemporalTask" action="<%= url_for controller: "task", action: "update", slug: @task_list.slug, id: task.id %>" class="card-content black-text">
+            <div <% if !task.expired? -%>editable="description"<% end -%> >
+                <p class="flow-text"><%= task.description %></p>
+                <div class="actions right-align" style="display: none">
+                    <div action="save" class="btn blue">Save</div>
+                    <div action="cancel" class="btn white black-text">Cancel</div>
+                </div>
+            </div>
+
+            <% if task.expired? -%>
+                <p>Starting on <%= task.start_date.to_formatted_s(:long_pickdate) %> and ending <%= task.end_date.to_formatted_s(:long_pickdate) %></p>
+            <% else -%>            
+                <div editable="dates">
+                    <p>Starting on <span action="changeStart" class="blue-text"><%= task.start_date.to_formatted_s(:long_pickdate) %></span> and ending <span action="changeEnd" class="blue-text"><%= task.end_date.to_formatted_s(:long_pickdate) %></span></p>
+                    <div style="height: 0; overflow: hidden">
+                        <input name="start_date" value="<%= task.start_date.to_formatted_s(:iso8601) %>" type="date">
+                        <input name="end_date"  value="<%= task.end_date.to_formatted_s(:iso8601) %>" type="date">
+                    </div>                
+                </div>
+            <% end -%>
+
+            <% if task.expired? -%>
+                <div class="input-field">
+                    <select disabled>
+                        <option selected value="expired">Expired</option>
+                    </select>
+                    <label>State</label>
+                </div>
+            <% else -%>
+                <div editable="state" class="input-field">
+                    <select name="state">
+                        <option <% if task.state == "done" -%>selected<% end -%> value="done">Done</option>
+                        <option <% if task.state == "not_done" -%>selected<% end -%> value="not_done">Not Done</option>
+                    </select>
+                    <label>State</label>
+                </div>
+            <% end -%>
+        </div>
+    </div>
+</div>

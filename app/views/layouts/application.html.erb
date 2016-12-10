@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tasker</title>
+    <%= csrf_meta_tags %>
+  
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <% if flash[:notice] %>
+    <script type="application/javascript">
+      $(function(){
+        setTimeout(function(){
+          Materialize.toast('<%= flash[:notice] %>', 5000);
+        }, 1000);
+      });             
+    </script>
+    <% end %>
+
+    <% if flash[:error] %>
+    <script type="application/javascript">
+      $(function(){
+        setTimeout(function(){
+          <% flash[:error].each do |key, array| %>
+            Materialize.toast("<%= key.to_s.gsub("_", " ").capitalize %>: <%= (array.collect { |x| x.capitalize }).join(", ") %>", 5000);
+          <% end %>
+        }, 1000);
+      });             
+    </script>
+    <% end %>
+  </head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>

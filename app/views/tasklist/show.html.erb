@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+
+            <h1>
+                <a class="black-text" href="/">Tasker</a>
+            </h1>
+
+            <div id="editor-name">
+                <h4 editable action="<%= url_for controller: "tasklist", action: "update", slug: @task_list.slug %>"><%= @task_list.name %></h4>
+                <div class="editor-actions right-align" style="display: none">
+                    <div action="save" class="btn blue">Save</div>
+                    <div action="cancel" class="btn white black-text">Cancel</div>
+                </div>
+            </div>
+
+            <p>
+                Created at: <%= @task_list.created_at.to_formatted_s(:long) %> <br>
+                Update at: <%= @task_list.last_general_update_at.to_formatted_s(:long) %>
+            </p>
+            <div class="copy-url btn white black-text">Copy unique url</div>
+        </div>
+
+        <%= render partial: "TemporalTaskForm" %>
+        <%= render partial: "ProgressTaskForm" %>
+        <%= render partial: "TODOTaskForm" %>
+        
+        <div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 45px; right: 25px">
+            <a class="btn-floating btn-large red">
+                <i class="material-icons">add</i>
+            </a>
+            <ul>
+                <li><a id="createTemporalTask" href="#TemporalTaskModal" class="btn-floating red"><i class="material-icons">av_timer</i></a></li>
+                <li><a id="createProgressTask" href="#ProgressTaskModal" class="btn-floating yellow darken-1"><i class="material-icons">show_chart</i></a></li>
+                <li><a id="createTODOTask" href="#TODOTaskModal" class="btn-floating green"><i class="material-icons">assignment</i></a></li>
+            </ul>
+        </div>
+        
+        <% @tasks.each do |task| %>
+            <%= render partial: task.type, locals: { task: task } %>
+        <% end %>
+    </div>
+</div>
